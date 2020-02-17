@@ -1,0 +1,382 @@
+{
+	"info": {
+		"_postman_id": "d4b4b172-21c9-4fbe-866d-14560f5264dd",
+		"name": "auction-bid-tracker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get-users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-user-by-id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/users/id/498081",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"id",
+						"498081"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add-user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "name",
+						"value": "fatih",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add-user-with-name",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/users/fatih",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"fatih"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-user-by-id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/users/id/498081",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"id",
+						"498081"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-items",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/items",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-item-by-id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/items/id/498081",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"items",
+						"id",
+						"498081"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-item-by-userid",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/items/user/131847",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"items",
+						"user",
+						"131847"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add-item",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "name",
+						"type": "text",
+						"value": "fatih"
+					}
+				],
+				"url": {
+					"raw": "localhost:8000/items",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add-item-with-name",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/items/golang-book",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"items",
+						"golang-book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-item-by-id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/items/id/498081",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"items",
+						"id",
+						"498081"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-bids",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/bids",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"bids"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-bid",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/bids/498081/498081",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"bids",
+						"498081",
+						"498081"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-bids-by-itemid",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/bids/498081",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"bids",
+						"498081"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-winner",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/winner/498081",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"winner",
+						"498081"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add-bid",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "name",
+						"type": "text",
+						"value": "fatih"
+					}
+				],
+				"url": {
+					"raw": "localhost:8000/bids/498084/498084/55",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"bids",
+						"498084",
+						"498084",
+						"55"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-bid",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "name",
+						"type": "text",
+						"value": "fatih"
+					}
+				],
+				"url": {
+					"raw": "localhost:8000/bids/498081/498081/35",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"bids",
+						"498081",
+						"498081",
+						"35"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-bid",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/bids/498081/498082",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"bids",
+						"498081",
+						"498082"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
