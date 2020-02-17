@@ -6,6 +6,28 @@ import(
 	"fmt"
 )
 
+type User struct {
+	ID string `json:"id"`
+	Name string `json:"name"`
+  }
+
+var users []User
+
+type Item struct {
+	ID string `json:"id"`
+	Name string `json:"name"`
+  }
+
+var items []Item
+
+type Bid struct {
+	UserID string `json:"userid"`
+	ItemID string `json:"itemid"`
+	Amount string `json:"amount"`
+  }
+
+var bids []Bid
+
 func main(){
 	router := mux.NewRouter()
 	router.HandleFunc("/users", getUsers).Methods("GET")
