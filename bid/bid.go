@@ -8,6 +8,7 @@ import(
 	// "math/rand"
 	"strconv"
 	"github.com/fakturk/auction-bid-tracker/item"
+	"github.com/fakturk/auction-bid-tracker/user"
 )
 
 type Bid struct {
@@ -47,8 +48,26 @@ func GetBids(w http.ResponseWriter, r *http.Request) {
 	bid.UserID = params["userid"]
 	bid.ItemID = params["itemid"]
 	bid.Amount = params["amount"]
-	bids = append(bids, bid)
-	json.NewEncoder(w).Encode(&bid)
+
+	if item.FindItem(bid.ItemID)!=(item.Item{}) && user.FindUser(bid.UserID)!=(user.User{}) {
+		bids = append(bids, bid)
+		json.NewEncoder(w).Encode(&bid)
+	} else {
+		fmt.Println("inside else")
+		if item.FindItem(bid.ItemID)==(item.Item{}) {
+			fmt.Println("inside item not found")
+			bid.ItemID  = "Item Not Found"
+		} 
+
+		if user.FindUser(bid.UserID)==(user.User{}) {
+			fmt.Println("inside item not found")
+			bid.UserID  = "User Not Found"
+		}
+		fmt.Println(bid)
+		json.NewEncoder(w).Encode(&bid)
+
+	}	
+	
   }
 
   func UpdateBid(w http.ResponseWriter, r *http.Request) {

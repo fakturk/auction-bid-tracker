@@ -25,13 +25,25 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
   func GetUserByID(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
+	user :=FindUser(params["id"])
+	// for _, user := range users {
+	//   if user.ID == params["id"] {
+	// 	json.NewEncoder(w).Encode(user)
+	// 	return
+	//   }
+	// }
+	// json.NewEncoder(w).Encode(&User{})
+	json.NewEncoder(w).Encode(user)
+  }
+
+  func FindUser(id string) User{
+	var u User
 	for _, user := range users {
-	  if user.ID == params["id"] {
-		json.NewEncoder(w).Encode(user)
-		return
+		if user.ID == id {
+		  return user
+		}
 	  }
-	}
-	json.NewEncoder(w).Encode(&User{})
+	return u
   }
 
   func AddUser(w http.ResponseWriter, r *http.Request) {
