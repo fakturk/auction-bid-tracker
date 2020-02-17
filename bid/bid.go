@@ -28,13 +28,25 @@ func GetBids(w http.ResponseWriter, r *http.Request) {
   func GetBid(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
+	bid:=FindBid(params["userid"] ,params["itemid"] )
+	// for _, bid := range bids {
+	//   if bid.UserID == params["userid"] && bid.ItemID == params["itemid"] {
+	// 	json.NewEncoder(w).Encode(bid)
+	// 	return
+	//   }
+	// }
+	// json.NewEncoder(w).Encode(&Bid{})
+	json.NewEncoder(w).Encode(bid)
+  }
+
+  func FindBid(userid,itemid string) Bid{
+	var b Bid
 	for _, bid := range bids {
-	  if bid.UserID == params["userid"] && bid.ItemID == params["itemid"] {
-		json.NewEncoder(w).Encode(bid)
-		return
+		if bid.UserID == userid && bid.ItemID ==itemid {
+			return bid
+		}
 	  }
-	}
-	json.NewEncoder(w).Encode(&Bid{})
+	return b
   }
 
 
@@ -50,7 +62,12 @@ func GetBids(w http.ResponseWriter, r *http.Request) {
 	bid.Amount = params["amount"]
 
 	if item.FindItem(bid.ItemID)!=(item.Item{}) && user.FindUser(bid.UserID)!=(user.User{}) {
-		bids = append(bids, bid)
+		if FindBid(params["userid"] ,params["itemid"] )!=(Bid{}) {
+			BidUpdate(params["userid"],params["itemid"],params["amount"])
+		} else{
+			bids = append(bids, bid)
+		}
+		
 		json.NewEncoder(w).Encode(&bid)
 	} else {
 		fmt.Println("inside else")
@@ -70,25 +87,32 @@ func GetBids(w http.ResponseWriter, r *http.Request) {
 	
   }
 
+
+
   func UpdateBid(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
-	for index, bid := range bids {
-	  if bid.UserID == params["userid"] && bid.ItemID == params["itemid"] {
-		bids = append(bids[:index], bids[index+1:]...)
-		var bid Bid
-		_ = json.NewDecoder(r.Body).Decode(&bid)
-		// bid.ID = params["id"]
-		bid.UserID = params["userid"]
-		bid.ItemID = params["itemid"]
-		bid.Amount = params["amount"]
-		bids = append(bids, bid)
-		json.NewEncoder(w).Encode(&bid)
-		return
-	  }
-	}
+	BidUpdate(params["userid"],params["itemid"],params["amount"])
+	
 	json.NewEncoder(w).Encode(bids)
   }
+
+  func BidUpdate(userid,itemid,amount string){
+	for index, bid := range bids {
+		if bid.UserID == userid && bid.ItemID == itemid {
+		  bids = append(bids[:index], bids[index+1:]...)
+		  var bid Bid
+		//   _ = json.NewDecoder(r.Body).Decode(&bid)
+		  // bid.ID = params["id"]
+		  bid.UserID = userid
+		  bid.ItemID = itemid
+		  bid.Amount = amount
+		  bids = append(bids, bid)
+		//   json.NewEncoder(w).Encode(&bid)
+		  return
+		}
+	}
+  } 
 
   func DeleteBid(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
