@@ -6,7 +6,7 @@ import(
 	"fmt"
 	"encoding/json"
 	// "math/rand"
-  	// "strconv"
+  	"strconv"
 )
 
 type Bid struct {
@@ -80,4 +80,32 @@ func GetBids(w http.ResponseWriter, r *http.Request) {
 	  }
 	}
 	json.NewEncoder(w).Encode(bids)
+  }
+
+  func WinnerBidByItemID(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprintf(w,"WinnerBids\n")
+	fmt.Println("inside winner func")
+
+	params := mux.Vars(r)
+	fmt.Println(params)
+	var winner Bid
+	winner.Amount="0"
+	fmt.Println(bids)
+	for _, bid := range bids {
+		fmt.Println(bid)
+	  if bid.ItemID == params["itemid"] {
+		  fmt.Println("inside check itemid: ",bid.ItemID)
+		// json.NewEncoder(w).Encode(bid)
+		bidAmount,_:=strconv.Atoi(bid.Amount)
+		winnerAmount,_:=strconv.Atoi(winner.Amount)
+		if  bidAmount> winnerAmount {
+			fmt.Println("bid is bigger")
+			winner=bid
+		}
+		
+	  }
+	}
+	fmt.Println(winner)
+	json.NewEncoder(w).Encode(winner)
   }

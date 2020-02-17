@@ -30,6 +30,10 @@ func main(){
 	router.HandleFunc("/bids/{userid}/{itemid}/{amount}", bid.UpdateBid).Methods("PUT")
 	router.HandleFunc("/bids/{userid}/{itemid}", bid.DeleteBid).Methods("DELETE")
 
+	router.HandleFunc("/bids/{itemid}", bid.WinnerBidByItemID).Methods("GET")
+	
+
+
 	http.ListenAndServe(":8000", router)
 
 }
