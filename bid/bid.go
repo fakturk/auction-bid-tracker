@@ -6,7 +6,8 @@ import(
 	"fmt"
 	"encoding/json"
 	// "math/rand"
-  	"strconv"
+	"strconv"
+	"github.com/fakturk/auction-bid-tracker/item"
 )
 
 type Bid struct {
@@ -108,4 +109,36 @@ func GetBids(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(winner)
 	json.NewEncoder(w).Encode(winner)
+  }
+
+  func BidsByItemID(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	params := mux.Vars(r)
+	// fmt.Println(params)
+	var allBids []Bid
+	for _, bid := range bids {
+	  if bid.ItemID == params["itemid"] {
+		//   fmt.Println("inside check itemid: ",bid.ItemID)
+		// json.NewEncoder(w).Encode(bid)
+		allBids = append(allBids,bid)
+		
+	  }
+	}
+	// fmt.Println(winner)
+	json.NewEncoder(w).Encode(allBids)
+  }
+
+  func ItemByUserID(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	params := mux.Vars(r)
+	var allItems []item.Item
+	for _, bid := range bids {
+	  if bid.UserID == params["userid"] {
+		item:=item.FindItem(bid.ItemID)
+		allItems = append(allItems,item)
+		
+	  }
+	}
+	json.NewEncoder(w).Encode(allItems)
   }

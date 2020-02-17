@@ -25,13 +25,25 @@ func GetItems(w http.ResponseWriter, r *http.Request) {
   func GetItemByID(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
+	item :=FindItem(params["id"])
+	// for _, item := range items {
+	//   if item.ID == params["id"] {
+	// 	json.NewEncoder(w).Encode(item)
+	// 	return
+	//   }
+	// }
+	// json.NewEncoder(w).Encode(&Item{})
+	json.NewEncoder(w).Encode(item)
+  }
+
+  func FindItem(id string) Item{
+	var i Item
 	for _, item := range items {
-	  if item.ID == params["id"] {
-		json.NewEncoder(w).Encode(item)
-		return
+		if item.ID == id {
+		  return item
+		}
 	  }
-	}
-	json.NewEncoder(w).Encode(&Item{})
+	return i
   }
 
   func AddItem(w http.ResponseWriter, r *http.Request) {

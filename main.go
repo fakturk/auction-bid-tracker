@@ -30,7 +30,11 @@ func main(){
 	router.HandleFunc("/bids/{userid}/{itemid}/{amount}", bid.UpdateBid).Methods("PUT")
 	router.HandleFunc("/bids/{userid}/{itemid}", bid.DeleteBid).Methods("DELETE")
 
-	router.HandleFunc("/bids/{itemid}", bid.WinnerBidByItemID).Methods("GET")
+	router.HandleFunc("/winner/{itemid}", bid.WinnerBidByItemID).Methods("GET")
+	router.HandleFunc("/bids/{itemid}", bid.BidsByItemID).Methods("GET")
+	router.HandleFunc("/items/user/{userid}", bid.ItemByUserID).Methods("GET")
+
+
 	
 
 
