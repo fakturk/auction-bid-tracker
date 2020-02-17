@@ -34,6 +34,7 @@ var bids []Bid
 func main(){
 	router := mux.NewRouter()
 	router.HandleFunc("/users", getUsers).Methods("GET")
+	router.HandleFunc("/users/id/{id}", getUserByID).Methods("GET")
 	router.HandleFunc("/users", addUser).Methods("POST")
 	router.HandleFunc("/users/{name}", addUserWithName).Methods("POST")
 	http.ListenAndServe(":8000", router)
@@ -44,6 +45,18 @@ func getUsers(w http.ResponseWriter, r *http.Request) {
 	// fmt.Fprintf(w,"GetUsers\n")
 	w.Header().Set("Content-Type", "application/json")
   	json.NewEncoder(w).Encode(users)
+  }
+
+  func getUserByID(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	params := mux.Vars(r)
+	for _, user := range users {
+	  if user.ID == params["id"] {
+		json.NewEncoder(w).Encode(user)
+		return
+	  }
+	}
+	json.NewEncoder(w).Encode(&User{})
   }
 
   func addUser(w http.ResponseWriter, r *http.Request) {
