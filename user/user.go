@@ -55,3 +55,15 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	users = append(users, user)
 	json.NewEncoder(w).Encode(&user)
   }
+
+  func DeleteUserByID(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	params := mux.Vars(r)
+	for index, user := range users {
+	  if user.ID == params["id"] {
+		users = append(users[:index], users[index+1:]...)
+		break
+	  }
+	}
+	json.NewEncoder(w).Encode(users)
+  }
