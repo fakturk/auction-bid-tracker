@@ -5,20 +5,10 @@ import(
 	"net/http"	
 	"github.com/fakturk/auction-bid-tracker/user"
 	"github.com/fakturk/auction-bid-tracker/item"
+	"github.com/fakturk/auction-bid-tracker/bid"
 	
 )
 
-
-
-
-
-type Bid struct {
-	UserID string `json:"userid"`
-	ItemID string `json:"itemid"`
-	Amount string `json:"amount"`
-  }
-
-var bids []Bid
 
 func main(){
 	router := mux.NewRouter()
@@ -33,6 +23,12 @@ func main(){
 	router.HandleFunc("/items", item.AddItem).Methods("POST")
 	router.HandleFunc("/items/{name}", item.AddItemWithName).Methods("POST")
 	router.HandleFunc("/items/id/{id}", item.DeleteItemByID).Methods("DELETE")
+
+	router.HandleFunc("/bids", bid.GetBids).Methods("GET")
+	router.HandleFunc("/bids/{userid}/{itemid}", bid.GetBid).Methods("GET")
+	router.HandleFunc("/bids/{userid}/{itemid}/{amount}", bid.AddBid).Methods("POST")
+	router.HandleFunc("/bids/{userid}/{itemid}/{amount}", bid.UpdateBid).Methods("PUT")
+	router.HandleFunc("/bids/{userid}/{itemid}", bid.DeleteBid).Methods("DELETE")
 
 	http.ListenAndServe(":8000", router)
 
