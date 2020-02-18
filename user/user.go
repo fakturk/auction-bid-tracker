@@ -16,8 +16,13 @@ type User struct {
 
 var users []User
 
+func AddMockUsers(){
+	//adding mock data for test usage 
+	users = append(users, User{ID: "498081", Name: "Fatih"})
+	users = append(users, User{ID: "498082", Name: "Ilke"})
+}
+
 func GetUsers(w http.ResponseWriter, r *http.Request) {
-	// fmt.Fprintf(w,"GetUsers\n")
 	w.Header().Set("Content-Type", "application/json")
   	json.NewEncoder(w).Encode(users)
   }
@@ -26,13 +31,6 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	user :=FindUser(params["id"])
-	// for _, user := range users {
-	//   if user.ID == params["id"] {
-	// 	json.NewEncoder(w).Encode(user)
-	// 	return
-	//   }
-	// }
-	// json.NewEncoder(w).Encode(&User{})
 	json.NewEncoder(w).Encode(user)
   }
 

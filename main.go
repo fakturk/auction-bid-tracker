@@ -12,6 +12,11 @@ import(
 
 func main(){
 	router := mux.NewRouter()
+	//adding mock data for test usage 
+	user.AddMockUsers()
+	item.AddMockItems()
+	bid.AddMockBids()
+
 	router.HandleFunc("/users", user.GetUsers).Methods("GET")
 	router.HandleFunc("/users/id/{id}", user.GetUserByID).Methods("GET")
 	router.HandleFunc("/users", user.AddUser).Methods("POST")

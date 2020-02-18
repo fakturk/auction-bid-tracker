@@ -16,6 +16,12 @@ type Item struct {
 
 var items []Item
 
+func AddMockItems(){
+	//adding mock data for test usage 
+	items = append(items, Item{ID: "727887", Name: "Golang-Book"})
+	items = append(items, Item{ID: "727888", Name: "Iphone"})
+}
+
 func GetItems(w http.ResponseWriter, r *http.Request) {
 	// fmt.Fprintf(w,"GetItems\n")
 	w.Header().Set("Content-Type", "application/json")
@@ -26,13 +32,6 @@ func GetItems(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	item :=FindItem(params["id"])
-	// for _, item := range items {
-	//   if item.ID == params["id"] {
-	// 	json.NewEncoder(w).Encode(item)
-	// 	return
-	//   }
-	// }
-	// json.NewEncoder(w).Encode(&Item{})
 	json.NewEncoder(w).Encode(item)
   }
 

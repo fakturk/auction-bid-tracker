@@ -19,6 +19,16 @@ type Bid struct {
 
 var bids []Bid
 
+
+func AddMockBids(){
+	//adding mock data for test usage 
+	bids = append(bids, Bid{UserID: "498081",ItemID: "727888", Amount: "34"})
+	bids = append(bids, Bid{UserID: "498081",ItemID: "727887", Amount: "35"})
+	bids = append(bids, Bid{UserID: "498082",ItemID: "727887", Amount: "54"})
+	bids = append(bids, Bid{UserID: "498082",ItemID: "727888", Amount: "72"})
+
+}
+
 func GetBids(w http.ResponseWriter, r *http.Request) {
 	// fmt.Fprintf(w,"GetBids\n")
 	w.Header().Set("Content-Type", "application/json")
@@ -29,13 +39,6 @@ func GetBids(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	bid:=FindBid(params["userid"] ,params["itemid"] )
-	// for _, bid := range bids {
-	//   if bid.UserID == params["userid"] && bid.ItemID == params["itemid"] {
-	// 	json.NewEncoder(w).Encode(bid)
-	// 	return
-	//   }
-	// }
-	// json.NewEncoder(w).Encode(&Bid{})
 	json.NewEncoder(w).Encode(bid)
   }
 
@@ -87,8 +90,6 @@ func GetBids(w http.ResponseWriter, r *http.Request) {
 	
   }
 
-
-
   func UpdateBid(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
@@ -102,13 +103,10 @@ func GetBids(w http.ResponseWriter, r *http.Request) {
 		if bid.UserID == userid && bid.ItemID == itemid {
 		  bids = append(bids[:index], bids[index+1:]...)
 		  var bid Bid
-		//   _ = json.NewDecoder(r.Body).Decode(&bid)
-		  // bid.ID = params["id"]
 		  bid.UserID = userid
 		  bid.ItemID = itemid
 		  bid.Amount = amount
 		  bids = append(bids, bid)
-		//   json.NewEncoder(w).Encode(&bid)
 		  return
 		}
 	}
@@ -137,14 +135,10 @@ func GetBids(w http.ResponseWriter, r *http.Request) {
 	winner.Amount="0"
 	fmt.Println(bids)
 	for _, bid := range bids {
-		fmt.Println(bid)
 	  if bid.ItemID == params["itemid"] {
-		  fmt.Println("inside check itemid: ",bid.ItemID)
-		// json.NewEncoder(w).Encode(bid)
 		bidAmount,_:=strconv.Atoi(bid.Amount)
 		winnerAmount,_:=strconv.Atoi(winner.Amount)
 		if  bidAmount> winnerAmount {
-			fmt.Println("bid is bigger")
 			winner=bid
 		}
 		
@@ -158,17 +152,16 @@ func GetBids(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	params := mux.Vars(r)
-	// fmt.Println(params)
+
 	var allBids []Bid
 	for _, bid := range bids {
 	  if bid.ItemID == params["itemid"] {
-		//   fmt.Println("inside check itemid: ",bid.ItemID)
-		// json.NewEncoder(w).Encode(bid)
+
 		allBids = append(allBids,bid)
 		
 	  }
 	}
-	// fmt.Println(winner)
+
 	json.NewEncoder(w).Encode(allBids)
   }
 
